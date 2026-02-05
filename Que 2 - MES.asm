@@ -1,0 +1,35 @@
+ORG 0000H
+
+MOV R1,50H   ; copy A
+MOV R2,51H   ; copy B
+
+LOOP:
+MOV A,R1
+JZ A_ZERO
+
+MOV A,R2
+JZ B_ZERO
+
+DEC R1
+DEC R2
+
+MOV A,R1
+JNZ LOOP
+
+; ---------- RESULTS ----------
+
+A_ZERO:
+MOV A,R2
+JZ EQUAL
+MOV 52H,#0FFH   ; A < B
+SJMP END1
+
+B_ZERO:
+MOV 52H,#01H    ; A > B
+SJMP END1
+
+EQUAL:
+MOV 52H,#00H
+
+END1:
+END
